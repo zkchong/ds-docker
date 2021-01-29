@@ -15,6 +15,7 @@ RUN export DEBIAN_FRONTEND=noninteractive; apt install s3fs sudo bindfs davfs2 v
 RUN conda install -c conda-forge jupyterlab=3.0.5 \
     pyspark=3.0.1 \
     openjdk=11.0.1 \
+    nodejs=15.3.0 \
     scikit-learn matplotlib awscli git
 RUN python -m pip install h2o==3.28.0.1 modin[ray]==0.8.2
 

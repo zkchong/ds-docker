@@ -3,20 +3,30 @@ set -xe
 #
 # User configuration
 #
+s3fs_passw_path="${HOME}/.passwd-s3fs"
 
 #
 # Setup s3fs
 #
-chmod 600 ${HOME}/.passwd-s3fs
+chmod 600 "$s3fs_passw_path"
 
-mkdir -p ${HOME}/s3/adc-ds-dev
-s3fs adc-ds-dev ${HOME}/s3/adc-ds-dev -o passwd_file=${HOME}/.passwd-s3fs -o uid=`id -u`,gid=`id -g`
+function mount_s3fs () {
+    # Param 1: The bucket name in the aws.
+    # Param 2: It will be mounted as ~/s3/xxxx. 
+    # Param 3: The password path.
 
-mkdir -p ${HOME}/s3/adc-ds-factdata
-s3fs adc-ds-factdata ${HOME}/s3/adc-ds-factdata -o passwd_file=${HOME}/.passwd-s3fs -o uid=`id -u`,gid=`id -g`
+    bucket_name=$1
+    local_name=$2
+    passwd_path=$3
 
-mkdir -p ${HOME}/s3/adc-ds-lms
-s3fs adc-ds-lms ${HOME}/s3/adc-ds-lms -o passwd_file=${HOME}/.passwd-s3fs -o uid=`id -u`,gid=`id -g`
+    mkdir -p ${HOME}/s3/$bucket_name
+    s3fs $bucket_name ${HOME}/s3/$bucket_name -o passwd_file=$passwd_path -o uid=`id -u`,gid=`id -g`
+}
+
+mount_s3fs "adc-ds-dev" "adc-ds-dev" $s3fs_passw_path
+mount_s3fs "adc-ds-factdata" "adc-ds-factdata" $s3fs_passw_path
+mount_s3fs "adc-ds-lms" "adc-ds-lms" $s3fs_passw_path
+mount_s3fs "adc-ds-data" "adc-ds-data" $s3fs_passw_path
 
 #
 # Bind the external data path correctly.
@@ -28,7 +38,7 @@ sudo mkdir -p ${HOME}/data
 data_uid=`stat -c %u /data`
 data_gid=`stat -c %g /data`
 
-sudo bindfs --map=$data_uid/1000:@$data_gid/@1000  /data  ${HOME}/data
+sudo bindfs --map=$data_uid/`id -u`:@$data_gid/@`id -g`  /data  ${HOME}/data
 
 
 # Jupyter lab
