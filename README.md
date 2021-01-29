@@ -54,7 +54,8 @@ We assume that you have cloned this git repo to your local.
 Do the followings:
 1. Get the aws credentials from admin and fill into `./ds_user_home/dot_passwd-s3fs`.
 2. Rename the `./ds_user_home/dot_passwd-s3fs` to `./ds_user_home/.passwd-s3fs`.
-3. Copy your aws credential from `~/.aws` to here `./`. If no, run `aws config` at your local. Check https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html for more info.
+3. Copy your aws credential from `~/.aws` to here `./ds_user_home`. Check https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html for more info about aws credential.
+4. You may put anything you need at `./ds_user_home`. All the files here will be copied into `/home/ds_user` in the docker image. 
 
 ## Step 3. Build Docker
 To build the docker, run the following code at mwc-production folder:
