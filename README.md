@@ -11,9 +11,9 @@ We have install and setup followings in the docker.
 - sklearn
 - pyspark
 
-Please check the version of these modules at `./Dockerfile`.
+Please check the detail at `./environment.yml`.
 
-We also mount the following aws s3 folder into `./home/ds_user/s3/`.
+We also mount the following aws s3 folder into `/home/ds_user/s3/`.
 - adc-ds-dev
 - adc-ds-factdata
 - adc-ds-lms
@@ -54,8 +54,8 @@ We assume that you have cloned this git repo to your local.
 Do the followings:
 1. Get the aws credentials from admin and fill into `./ds_user_home/dot_passwd-s3fs`.
 2. Rename the `./ds_user_home/dot_passwd-s3fs` to `./ds_user_home/.passwd-s3fs`.
-3. Copy your aws credential from `~/.aws` to here `./ds_user_home`. Check https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html for more info about aws credential.
-4. You may put anything you need at `./ds_user_home`. All the files here will be copied into `/home/ds_user` in the docker image. 
+3. Copy your aws credential from your local `~/.aws` to here `./ds_user_home`. Check https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html for more info about aws credential.
+4. You may put all the files you need at `./ds_user_home`. All the files here will be copied into `/home/ds_user` in the docker image. 
 
 ## Step 3. Build Docker
 To build the docker, run the following code at mwc-production folder:
@@ -99,3 +99,6 @@ bash start.sh
 # Developer Note
 ## s3fs and bindfs
 When mounting the external data folder `$WORKSPACE_PATH` to `./data`, the uid and gid of the files will be different from those in the docker. To reduce the hassle, we mount the s3 folders to `/data` first. Then remap the uid:gid with bindfs by mounting these folders to `${HOME}/data`. 
+
+## To do
+[ ] Prep the unit test code.
