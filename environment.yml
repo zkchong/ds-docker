@@ -9,6 +9,8 @@ dependencies:
   - pyspark>=3.0.1
   - openjdk=11.0.1
   - nodejs>=15.3.0
+  - feature_engine>=1.0.0
+  - modin
   - scikit-learn 
   - scikit-plot
   - matplotlib 
@@ -17,7 +19,7 @@ dependencies:
   - pip
   - pip:
     - h2o==3.28.0.1
-    - modin>=0.8.3
+    # - modin>=0.8.3
     - jupytext
     - papermill
     - matplotlib
