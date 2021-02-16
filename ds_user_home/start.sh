@@ -40,11 +40,29 @@ data_gid=`stat -c %g /data`
 
 sudo bindfs --map=$data_uid/`id -u`:@$data_gid/@`id -g`  /data  ${HOME}/data
 
+# Force jupyterlab to start the shell withb bash.
+export SHELL=bash 
+
+
+# This function will help us to switch between folder easily in Jupyterlab.
+function goto () {
+    new_path=$HOME/$1
+    new_path2=`dirname $new_path`
+
+    if [ -d "${new_path}" ] ; then
+        cd $new_path
+    else
+        cd $new_path2
+    fi
+}
+export -f goto
+
 
 # Jupyter lab
 # - Listen to every IP
 # - Port 8888
 # - No access token.
 cd ${HOME}
-jupyter lab --port 8888 --ip 0.0.0.0 --NotebookApp.token=''
+jupyter lab --port 8888 --ip 0.0.0.0 \
+  --NotebookApp.token='' 
 
