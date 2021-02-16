@@ -99,6 +99,4 @@ bash start.sh
 # Developer Note
 ## s3fs and bindfs
 When mounting the external data folder `$WORKSPACE_PATH` to `./data`, the uid and gid of the files will be different from those in the docker. To reduce the hassle, we mount the s3 folders to `/data` first. Then remap the uid:gid with bindfs by mounting these folders to `${HOME}/data`. 
-
-## To do
-[ ] Prep the unit test code.
+ 
