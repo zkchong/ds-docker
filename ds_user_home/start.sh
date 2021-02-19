@@ -33,12 +33,17 @@ mount_s3fs "adc-ds-data" "adc-ds-data" $s3fs_passw_path
 #
 # I have no way to mount external volumn with the right uid gid in docker.
 # So, I use bindfs to remap the uid and gid.
-sudo mkdir -p /data
-sudo mkdir -p ${HOME}/data
-data_uid=`stat -c %u /data`
-data_gid=`stat -c %g /data`
+FOLDER_NAME=code
+if [ -d "${HOME}/$FOLDER_NAME" ]; then
+    mv "${HOME}/${FOLDER_NAME}" "${HOME}/${FOLDER_NAME}2" 
+fi
 
-sudo bindfs --map=$data_uid/`id -u`:@$data_gid/@`id -g`  /data  ${HOME}/data
+sudo mkdir -p /$FOLDER_NAME
+sudo mkdir -p ${HOME}/$FOLDER_NAME
+data_uid=`stat -c %u /$FOLDER_NAME`
+data_gid=`stat -c %g /$FOLDER_NAME`
+
+sudo bindfs --map=$data_uid/`id -u`:@$data_gid/@`id -g`  /$FOLDER_NAME  ${HOME}/$FOLDER_NAME
 
 # Force jupyterlab to start the shell withb bash.
 export SHELL=bash 
