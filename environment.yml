@@ -11,6 +11,7 @@ dependencies:
   - nodejs>=15.3.0
   - feature_engine>=1.0.0
   - modin
+  - pandas
   - scikit-learn 
   - scikit-plot
   - matplotlib 
@@ -23,7 +24,6 @@ dependencies:
     - jupytext
     - papermill
     - matplotlib
-    - pandas
     - seaborn
     - numpy
     - imblearn # Imbalance learning module.

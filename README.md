@@ -33,7 +33,11 @@ sudo systemctl status docker
 Add user into the docker group. No need for sudo to run docker.
 ```bash
 sudo gpasswd -a $USER docker
+```
+Then, logout and and login back to the terminal in order to refresh the group permission.
 
+Next, try the following. It should work without the `sudo`.
+```bash
 # Test run
 docker run hello-world
 ```
@@ -58,7 +62,7 @@ Do the followings:
 4. You may put all the files you need at `./ds_user_home`. All the files here will be copied into `/home/ds_user` in the docker image. 
 
 ## Step 3. Build Docker
-To build the docker, run the following code at mwc-production folder:
+To build the docker, run the following code at the base folder:
 ```bash
 docker build  --rm -t ds_docker  -f ./Dockerfile  .
 ``` 
@@ -67,11 +71,16 @@ docker build  --rm -t ds_docker  -f ./Dockerfile  .
 ```bash
 HOST_PORT=8080 # Jupyter port.
 WORKSPACE_PATH="/home/zankai/Dropbox/D03 Work"  # Change to your data path.
-docker run -i -t --privileged --name ds_docker \
+docker run -i -t --name ds_docker \
+    --device /dev/fuse \
+    --cap-add SYS_ADMIN \
+    --security-opt "apparmor=unconfined" \
     -v "$WORKSPACE_PATH":/data \
     -p $HOST_PORT:8888 \
     ds_docker 
 ```
+
+
 The container will be persistent in the OS. Once exit the container, we can resume it with 
 ```bash
 docker start ds_docker
@@ -87,7 +96,10 @@ docker container rm ds_docker
 ```bash
 HOST_PORT=8080 # Jupyter port.
 WORKSPACE_PATH="/home/zankai/Dropbox/D03 Work" # Change to your data path.
-docker run -i -t --rm --privileged --name ds_docker \
+docker run -i -t --rm --name ds_docker \
+    --device /dev/fuse \
+    --cap-add SYS_ADMIN \
+    --security-opt "apparmor=unconfined" \
     -v "$WORKSPACE_PATH":/data \
     -p $HOST_PORT:8888 \
     ds_docker /bin/bash
@@ -97,6 +109,14 @@ bash start.sh
 ```
 
 # Developer Note
-## s3fs and bindfs
+## bindfs
 When mounting the external data folder `$WORKSPACE_PATH` to `./data`, the uid and gid of the files will be different from those in the docker. To reduce the hassle, we mount the s3 folders to `/data` first. Then remap the uid:gid with bindfs by mounting these folders to `${HOME}/data`. 
  
+## s3fs
+ To use s3fs, we need to use the option `--privileged` when running the docker. However, such option is disable in aws fargate (https://docs.aws.amazon.com/AmazonECS/latest/developerguide/AWS_Fargate.html). Hence, we replace the option `--privileged` with the followings:
+```
+--device /dev/fuse \
+--cap-add SYS_ADMIN \
+--security-opt "apparmor=unconfined" \
+``` 
+The workaround is learned from https://hub.docker.com/r/efrecon/s3fs.
