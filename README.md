@@ -64,7 +64,8 @@ Do the followings:
 ## Step 3. Build Docker
 To build the docker, run the following code at the base folder:
 ```bash
-docker build  --rm -t ds_docker  -f ./Dockerfile  .
+# docker build  --rm -t ds_docker  -f ./Dockerfile  .
+docker build  --rm -t ds_docker --network=host -f ./Dockerfile  .
 ``` 
 
 ## Step 4. Deploy
@@ -95,7 +96,7 @@ docker container rm ds_docker
 ## Test Run (for Developer)
 ```bash
 HOST_PORT=8080 # Jupyter port.
-WORKSPACE_PATH="/home/zankai/Dropbox/D03 Work" # Change to your data path.
+WORKSPACE_PATH="/home/zankai/axiata" # Change to your data path.
 docker run -i -t --rm --name ds_docker \
     --device /dev/fuse \
     --cap-add SYS_ADMIN \
