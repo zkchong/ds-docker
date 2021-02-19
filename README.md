@@ -34,7 +34,13 @@ Add user into the docker group. No need for sudo to run docker.
 ```bash
 sudo gpasswd -a $USER docker
 ```
-Then, logout and and login back to the terminal in order to refresh the group permission.
+Then, logout and and login back to the terminal in order to refresh the group permission or run the following command.
+
+```bash
+# Refresh group permission
+su - $USER
+```
+
 
 Next, try the following. It should work without the `sudo`.
 ```bash
@@ -60,6 +66,24 @@ Do the followings:
 2. Rename the `./ds_user_home/dot_passwd-s3fs` to `./ds_user_home/.passwd-s3fs`.
 3. Copy your aws credential from your local `~/.aws` to here `./ds_user_home`. Check https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html for more info about aws credential.
 4. You may put all the files you need at `./ds_user_home`. All the files here will be copied into `/home/ds_user` in the docker image. 
+
+## Step 3. Enable DNS service to ur Docker daemon
+#### 1. Create a daemon json file with the following commands
+```bash
+sudo vim /etc/docker/daemon.json
+```
+#### 2. Fill in the following within daemon.json
+```bash
+{
+"dns": ["8.8.8.8"]
+}
+```
+- -
+#### 3. Restart docker service
+```bash
+sudo service docker restart
+```
+
 
 ## Step 3. Build Docker
 To build the docker, run the following code at the base folder:
