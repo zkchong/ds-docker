@@ -5,7 +5,9 @@ channels:
   - conda-forge
 dependencies:
   - python=3.8
+  # - notebook
   - jupyterlab>=3
+  - nbconvert<6  #issue: https://github.com/ipython-contrib/jupyter_contrib_nbextensions/issues/1533
   - pyspark>=3.0.1
   - openjdk=11.0.1
   - nodejs>=15.3.0
