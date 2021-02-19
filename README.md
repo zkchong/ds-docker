@@ -42,6 +42,17 @@ Next, try the following. It should work without the `sudo`.
 docker run hello-world
 ```
 
+Fix the DNS issue of docker especially in Amazon Workspace:
+```text
+# 1. Create a file : sudo vi /etc/docker/daemon.json
+# 2. fill in the following. Save and exit.
+{
+  "dns": ["8.8.8.8"]
+}
+# 3. Run 
+sudo service docker restart
+```
+
 To make the docker service running even after reboot:
 ```bash
 # https://docs.docker.com/engine/install/linux-postinstall/#configure-docker-to-start-on-boot
@@ -65,7 +76,7 @@ Do the followings:
 To build the docker, run the following code at the base folder:
 ```bash
 # docker build  --rm -t ds_docker  -f ./Dockerfile  .
-docker build  --rm -t ds_docker --network=host -f ./Dockerfile  .
+docker build  --rm -t ds_docker -f ./Dockerfile  .
 ``` 
 
 ## Step 4. Deploy
