@@ -69,5 +69,5 @@ export -f goto
 # - No access token.
 cd ${HOME}
 jupyter lab --port 8888 --ip 0.0.0.0 \
-  --NotebookApp.token='' 
+  --NotebookApp.token='' --no-browser
 

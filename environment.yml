@@ -6,11 +6,12 @@ channels:
 dependencies:
   - python=3.8
   # - notebook
-  - jupyterlab>=3
+  - jupyterlab=3.0.6
   - nbconvert<6  #issue: https://github.com/ipython-contrib/jupyter_contrib_nbextensions/issues/1533
+  - jupyter_contrib_nbextensions
   - pyspark>=3.0.1
   - openjdk=11.0.1
-  - nodejs>=15.3.0
+  # - nodejs>=15.3.0
   - feature_engine>=1.0.0
   - modin
   - pandas

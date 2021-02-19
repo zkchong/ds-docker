@@ -6,7 +6,7 @@ docker container rm ds_docker
 
 docker build  --rm -t ds_docker  -f ./Dockerfile  .
 
-HOST_PORT=8080 # Jupyter port.
+HOST_PORT=8081 # Jupyter port.
 # WORKSPACE_PATH="/home/zankai/Dropbox/D03 Work" # Change to your data path.
 WORKSPACE_PATH="/home/zankai/axiata" # Change to your data path.
 docker run -i -t --rm  --name ds_docker \
