@@ -61,7 +61,7 @@ export SHELL=bash
 
 # This function will help us to switch between folder easily in Jupyterlab.
 function goto () {
-    new_path=/data
+    new_path=/data/$1
     new_path2=`dirname $new_path`
 
     if [ -d "${new_path}" ] ; then
