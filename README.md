@@ -1,24 +1,12 @@
 # Descrption
-This project will build a common data science docker that serves as the kick-start for all the new joiner.
+This project will build a common data science Jupyter notebook in docker.
 
 
 # What is docker?
 A container is a standard unit of software that packages up code and all its dependencies so the application runs quickly and reliably from one computing environment to another. (quoted from https://www.docker.com/resources/what-container).
 
 # Features
-We have install and setup followings in the docker.
-- h2o
-- sklearn
-- pyspark
-
-Please check the detail at `./environment.yml`.
-
-We also mount the following aws s3 folder into `/home/ds_user/s3/`.
-- adc-ds-dev
-- adc-ds-factdata
-- adc-ds-lms
-- adc-ds-data
-
+Please check the list of installastion at `./environment.yml`.
 
 # Installation Instruction
 
@@ -33,9 +21,24 @@ sudo systemctl status docker
 Add user into the docker group. No need for sudo to run docker.
 ```bash
 sudo gpasswd -a $USER docker
+```
+Then, logout and and login back to the terminal in order to refresh the group permission.
 
+Next, try the following. It should work without the `sudo`.
+```bash
 # Test run
 docker run hello-world
+```
+
+Fix the DNS issue of docker especially in Amazon Workspace:
+```text
+# 1. Create a file : sudo vi /etc/docker/daemon.json
+# 2. fill in the following. Save and exit.
+{
+  "dns": ["8.8.8.8"]
+}
+# 3. Run 
+sudo service docker restart
 ```
 
 To make the docker service running even after reboot:
@@ -49,29 +52,47 @@ sudo systemctl enable docker
 ## Step 2. Prepare the AWS access token
 *If you skip this step, you need to do it manually inside the docker.*
 
-We assume that you have cloned this git repo to your local. 
+We assume that you have setup aws credential in your computer. Refer to  Check https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html for more info about aws credential.
+
 
 Do the followings:
-1. Get the aws credentials from admin and fill into `./ds_user_home/dot_passwd-s3fs`.
-2. Rename the `./ds_user_home/dot_passwd-s3fs` to `./ds_user_home/.passwd-s3fs`.
-3. Copy your aws credential from your local `~/.aws` to here `./ds_user_home`. Check https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html for more info about aws credential.
-4. You may put all the files you need at `./ds_user_home`. All the files here will be copied into `/home/ds_user` in the docker image. 
+1. Copy your aws credential from your local `~/.aws` to a new folder, e.g. `~/axiata`. 
+```bash
+cp ~/.aws ~/axiata
+```
+2. Run the following to set the permission to readable by others (in this case the docker).
+```bash
+chmod 744 ./axiata/*
+```
 
 ## Step 3. Build Docker
-To build the docker, run the following code at mwc-production folder:
+To build the docker, run the following code at the base folder:
 ```bash
-docker build  --rm -t ds_docker  -f ./Dockerfile  .
+docker build  --rm -t ds_docker -f ./Dockerfile  .
 ``` 
 
 ## Step 4. Deploy
+We will launch the Jupyter notebook at port 8890. Browse to http://127.0.0.1:8890.
+
+### Method 1
+Run the script at `./script/deploy-docker.sh`. Make sure you change the configuration of this particular file first.
+```bash
+bash ./script/deploy-docker.sh
+```
+
+### Method 2
+Run the following
 ```bash
 HOST_PORT=8080 # Jupyter port.
 WORKSPACE_PATH="/home/zankai/Dropbox/D03 Work"  # Change to your data path.
-docker run -i -t --privileged --name ds_docker \
+docker run -i -t --name ds_docker \
+    --device /dev/fuse \
+    --cap-add SYS_ADMIN \
     -v "$WORKSPACE_PATH":/data \
     -p $HOST_PORT:8888 \
     ds_docker 
 ```
+
 The container will be persistent in the OS. Once exit the container, we can resume it with 
 ```bash
 docker start ds_docker
@@ -83,20 +104,7 @@ docker container stop ds_docker # if it is still running.
 docker container rm ds_docker
 ```
 
-## Test Run (for Developer)
-```bash
-HOST_PORT=8080 # Jupyter port.
-WORKSPACE_PATH="/home/zankai/Dropbox/D03 Work" # Change to your data path.
-docker run -i -t --rm --privileged --name ds_docker \
-    -v "$WORKSPACE_PATH":/data \
-    -p $HOST_PORT:8888 \
-    ds_docker /bin/bash
-
-# In the docker.
-bash start.sh
-```
-
 # Developer Note
-## s3fs and bindfs
+## bindfs
 When mounting the external data folder `$WORKSPACE_PATH` to `./data`, the uid and gid of the files will be different from those in the docker. To reduce the hassle, we mount the s3 folders to `/data` first. Then remap the uid:gid with bindfs by mounting these folders to `${HOME}/data`. 
  
