@@ -1,12 +1,18 @@
 # Descrption
 This project will build a common data science Jupyter notebook in docker.
 
+This docker is built from micromamba (https://hub.docker.com/r/mambaorg/micromamba) due to its better computational speed than conda.
+In this version, we will force the user to map the "data folder" (i.e., the folder that host your code in Workspace) into a temporary folder 
+at `/tmp/ds_docker/data` with bindfs. Bindfs allows the exact data to be mapped from one folder of user:group (e.g., uid1:gid1) to another in different user:group (e.g. uid2:gid2). Then, the docker will mount the folder `/tmp/ds_docker/data` at correct uid:gid.
+
+The new docker has size of about 3GB+.
+
 
 # What is docker?
 A container is a standard unit of software that packages up code and all its dependencies so the application runs quickly and reliably from one computing environment to another. (quoted from https://www.docker.com/resources/what-container).
 
-# Features
-Please check the list of installastion at `./environment.yml`.
+# Install Packages
+Please check the list of packages at `./env.yaml`.
 
 # Installation Instruction
 
@@ -65,46 +71,13 @@ cp ~/.aws ~/axiata
 chmod 744 ./axiata/*
 ```
 
-## Step 3. Build Docker
-To build the docker, run the following code at the base folder:
-```bash
-docker build  --rm -t ds_docker -f ./Dockerfile  .
-``` 
-
-## Step 4. Deploy
-We will launch the Jupyter notebook at port 8890. Browse to http://127.0.0.1:8890.
-
-### Method 1
+## Step 3. Deploy Docker
+ 
 Run the script at `./script/deploy-docker.sh`. Make sure you change the configuration of this particular file first.
 ```bash
 bash ./script/deploy-docker.sh
 ```
+ 
 
-### Method 2
-Run the following
-```bash
-HOST_PORT=8080 # Jupyter port.
-WORKSPACE_PATH="/home/zankai/Dropbox/D03 Work"  # Change to your data path.
-docker run -i -t --name ds_docker \
-    --device /dev/fuse \
-    --cap-add SYS_ADMIN \
-    -v "$WORKSPACE_PATH":/data \
-    -p $HOST_PORT:8888 \
-    ds_docker 
-```
 
-The container will be persistent in the OS. Once exit the container, we can resume it with 
-```bash
-docker start ds_docker
-```
-
-For re-redeployment (destroy and deploy), run
-```bash
-docker container stop ds_docker # if it is still running.
-docker container rm ds_docker
-```
-
-# Developer Note
-## bindfs
-When mounting the external data folder `$WORKSPACE_PATH` to `./data`, the uid and gid of the files will be different from those in the docker. To reduce the hassle, we mount the s3 folders to `/data` first. Then remap the uid:gid with bindfs by mounting these folders to `${HOME}/data`. 
  
