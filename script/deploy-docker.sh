@@ -28,7 +28,7 @@ sudo bindfs -o nonempty --map=$host_uid/$docker_uid:@$host_gid/@$docker_gid  $DA
 
 # Run
 docker run -i -t --rm  --name $docker_name \
-    -v $AWS_PATH:/home/micromamba/.aws \
+    -v $AWS_PATH:/home/mambauser/.aws \
     -v $MAP_DATA_PATH:/data \
     --network=host \
     -d \

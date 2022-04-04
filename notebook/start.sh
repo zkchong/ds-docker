@@ -13,6 +13,9 @@ jupyter nbextension enable highlight_selected_word/main
 jupyter nbextension enable toggle_all_line_numbers/main
 jupyter nbextension enable toc2/main
 jupyter nbextension enable collapsible_headings/main
+jupyter nbextension enable execute_time/ExecuteTime
+jupyter nbextension enable scroll_down/main
+jupyter nbextension enable notify/notify
 
 cd $DATA_PATH
 jupyter notebook \
