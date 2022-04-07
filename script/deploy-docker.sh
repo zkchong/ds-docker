@@ -7,14 +7,16 @@ docker container stop $docker_name # if it is still running.
 docker container rm $docker_name
 
 set -xe # Debug output and exit on error
+bash ./script/install-miniconda.sh
+bash ./script/install-jupyter.sh
 docker build  --rm -t $docker_name  -f ./Dockerfile  .
 
-#------------------------------------------------------------------------------
+#-----------------------------------------------------------------------
 # User Configuraiton
-#------------------------------------------------------------------------------
+#-----------------------------------------------------------------------
 HOST_PORT=8890 # Jupyter port. If using network=bridge, then it will be 8888.
-DATA_PATH="~/Templates/.axiata" # Change to your data path.
-AWS_PATH="~/Templates/.axiata/.aws" # Change to your aws credential path.
+DATA_PATH="$HOME/.axiata" # Change to your data path.
+AWS_PATH="$HOME/.axiata/.aws" # Change to your aws credential path.
 MAP_DATA_PATH=/tmp/$docker_name/data # Do not change this.
 
 host_uid=`id -u`
