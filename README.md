@@ -62,18 +62,54 @@ We assume that you have setup aws credential in your computer. Refer to  Check h
 
 
 Do the followings:
-1. Copy your aws credential from your local `~/.aws` to a new folder, e.g. `~/axiata`. 
+1. Copy your aws credential from your local `~/.aws` into a new folder, e.g. `~/.axiata`. 
 ```bash
-cp ~/.aws ~/axiata
+cp -r ~/.aws ~/.axiata
 ```
+`~/.axiata` shall be the working folder afterwards. Feel free to rename it as long it is consistently applied. 
 2. Run the following to set the permission to readable by others (in this case the docker).
 ```bash
-chmod 744 ./axiata/*
+chmod 744 ~/.axiata/*
 ```
 
 ## Step 3. Deploy Docker
+
+### 3.a. Dependency: bindfs (optional)
+
+Make sure that the virtual machine (assumed operated by UBUNTU Mate of Amazon Linux, based on CentOS) has `bindfs` module installed. This can be verified by running
+```bash
+bindfs --version
+```
+If it echos somewhat like `bindfs 1.x.x`, proceed to step [3.c](#inst-3-c-head). Else, install the module by running
+```bash
+sudo yum install -y bindfs
+```
+In case `No Package bindfs available` error message echoed, please enable the EPEL plugin for yum that is
+```bash
+sudo yum-config-manager --enable epel
+```
+or
+```bash
+sudo amazon-linux-extras install epel -y
+```
+Re-attempt to install `bindfs` again after EPEL plugin is disoverable in yum.
+
+### 3.b. Configure `deploy-docker.sh`
+
+Make sure you change the configuration of this particular file first. You may edit the `.sh` script<br>
+via Visual Studio Code
+```bash
+code ./script/deploy-docker.sh
+```
+or other text editor like Pluma
+```bash
+pluma ./script/deploy-docker.sh
+```
+Two variables concerning to be modified is `$DATA_PATH` (line 16) and `$AWS_PATH` (line 17). Reset the variables as such `AWS_PATH=*/.aws` and `DATA_PATH=parent/of/AWS_PATH`.
+
+<h3 id="inst-3-c-head">3.c. Build and Run Data Science Docker</h3>
  
-Run the script at `./script/deploy-docker.sh`. Make sure you change the configuration of this particular file first.
+Run the script at `./script/deploy-docker.sh`. 
 ```bash
 bash ./script/deploy-docker.sh
 ```
