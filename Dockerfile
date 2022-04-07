@@ -1,5 +1,5 @@
 FROM mambaorg/micromamba:0.21.0
-LABEL maintainer="zankai@myboost.co"
+LABEL maintainer="azhar.halim@myboost.co"
 
 # Open CV dependencies
 # https://stackoverflow.com/questions/55313610/importerror-libgl-so-1-cannot-open-shared-object-file-no-such-file-or-directo
