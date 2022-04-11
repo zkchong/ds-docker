@@ -35,9 +35,9 @@ export NB_USER="$(echo $NB_USER | sed -e 's/\(.*\)/\L\1/')"
 
 # Run
 docker run -i -t --rm --name $docker_name \
-    -v $AWS_PATH:/home/mambauser/.aws \
+    -v $MAP_DATA_PATH/.aws:/home/mambauser/.aws \
     -v $MAP_DATA_PATH:/data \
-    --env NB_USER=$NB_USER \
+    -e NB_USER=$NB_USER \
     --network=host \
     -d \
     $docker_name 
