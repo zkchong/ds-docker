@@ -1,4 +1,4 @@
-# Descrption
+# Description
 This project will build a common data science Jupyter notebook in docker.
 
 This docker is built from micromamba (https://hub.docker.com/r/mambaorg/micromamba) due to its better computational speed than conda.
@@ -80,7 +80,7 @@ Make sure that the virtual machine (assumed operated by UBUNTU Mate of Amazon Li
 ```bash
 bindfs --version
 ```
-If it echos somewhat like `bindfs 1.x.x`, proceed to step [3.c](#inst-3-c-head). Else, install the module by running
+If it echos somewhat like `bindfs 1.x.x`, proceed to step [`3.c`](#inst-3-c-head). Else, install the module by running
 ```bash
 sudo yum install -y bindfs
 ```
@@ -105,7 +105,7 @@ or other text editor like Pluma
 ```bash
 pluma ./script/deploy-docker.sh
 ```
-Two variables concerning to be modified is `$DATA_PATH` (line 16) and `$AWS_PATH` (line 17). Reset the variables as such `AWS_PATH=*/.aws` and `DATA_PATH=parent/of/AWS_PATH`.
+Two variables concerning to be modified is `$DATA_PATH` (line 18) and `$AWS_PATH` (line 19). Reset the variables as such `AWS_PATH=*/.aws` and `DATA_PATH=parent/of/AWS_PATH`.
 
 <h3 id="inst-3-c-head">3.c. Build and Run Data Science Docker</h3>
  
