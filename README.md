@@ -58,11 +58,15 @@ sudo systemctl enable docker
 ## Step 2. Prepare the AWS access token
 *If you skip this step, you need to do it manually inside the docker.*
 
-We assume that you have setup aws credential in your computer. Refer to  Check https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html for more info about aws credential.
-
+We assume that you have setup aws credential in your computer. Refer to  Check https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html for more info about aws credential.<br>
+You may inquire from [tech team repr.](mailto:syamil.zainudin@myboost.co) for the credentials. With the credentials available, make it ready by running
+```bash
+aws configure
+```
+and key into the relevant fields.
 
 Do the followings:
-1. Copy your aws credential from your local `~/.aws` into a new folder, e.g. `~/.axiata`. 
+1. Copy your aws credentials from your local `~/.aws` into a new folder, e.g. `~/.axiata`. 
 ```bash
 cp -r ~/.aws ~/.axiata
 ```
@@ -114,4 +118,6 @@ Run the script at `./script/deploy-docker.sh`.
 bash ./script/deploy-docker.sh
 ```
 
-Once deployed, Jupyter Notebook is accessible on `127.0.0.1:8888/?token=%(NB_USER)s` such that if a WorkSpaces user named `CORP/ellen.key`, then `NB_USER=adsellenkey`. Hence, the notebook server is running on `127.0.0.1:8888/?token=adsellenkey`. In case an error prompted on the page notifying `"... can’t establish a connection to the server..."`, please attempt to port into `8890` instead.
+Once deployed, Jupyter Notebook is accessible on `127.0.0.1:8888/?token=%(NB_USER)s` such that if a WorkSpaces user named `CORP\ellen.key`, then `NB_USER=adsellenkey`.<br>
+Hence, the notebook server is running on `127.0.0.1:8888/?token=adsellenkey`.<br>
+In case an error prompted on the page notifying `"... can’t establish a connection to the server..."`, please attempt to port into `8890` instead.
