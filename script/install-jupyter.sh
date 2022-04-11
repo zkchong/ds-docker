@@ -1,4 +1,4 @@
-conda install -y -c conda-forge notebook widgetsnbextension ipywidgets
+conda install -y -c conda-forge notebook
 
 # https://jupyter-contrib-nbextensions.readthedocs.io/en/latest/install.html
 pip install --upgrade jupyter_contrib_nbextensions

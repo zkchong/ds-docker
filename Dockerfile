@@ -1,4 +1,4 @@
-FROM mambaorg/micromamba:0.21.0
+FROM mambaorg/micromamba:0.21.1
 LABEL maintainer="azhar.halim@myboost.co"
 
 # Open CV dependencies
@@ -13,7 +13,7 @@ RUN micromamba install -y -n base -f /tmp/env.yaml && \
     micromamba clean --all --yes
 
 # Copy the necessary files 
-COPY  --chown=$MAMBA_USER:$MAMBA_USER ["./notebook/", "/code"] 
- 
+COPY --chown=$MAMBA_USER:$MAMBA_USER ["./notebook/", "/code"]
+
 WORKDIR /code
 CMD bash start.sh
