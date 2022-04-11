@@ -113,7 +113,5 @@ Run the script at `./script/deploy-docker.sh`.
 ```bash
 bash ./script/deploy-docker.sh
 ```
- 
 
-
- 
+Once deployed, Jupyter Notebook is accessible on `127.0.0.1:8888/?token=%(NB_USER)s` such that if a WorkSpaces user named `CORP/ellen.key`, then `NB_USER=adsellenkey`. Hence, the notebook server is running on `127.0.0.1:8888/?token=adsellenkey`. In case an error prompted on the page notifying `"... can’t establish a connection to the server..."`, please attempt to port into `8890` instead.
