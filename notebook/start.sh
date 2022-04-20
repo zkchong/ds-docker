@@ -18,5 +18,4 @@ jupyter nbextension enable scroll_down/main
 jupyter nbextension enable notify/notify
 jupyter nbextension enable --py widgetsnbextension
 
-# cd $DATA_PATH
 jupyter notebook $DATA_PATH --port 8888 --ip 0.0.0.0 --NotebookApp.token=$NB_USER --no-browser
