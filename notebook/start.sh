@@ -9,7 +9,7 @@ export SHELL=bash
 
 # Start jupyter notebook.
 jupyter nbextension enable codefolding/main
-jupyter nbextension enable highlight_selected_word/main
+# jupyter nbextension enable highlight_selected_word/main
 jupyter nbextension enable toggle_all_line_numbers/main
 jupyter nbextension enable toc2/main
 jupyter nbextension enable collapsible_headings/main
