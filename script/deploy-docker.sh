@@ -13,8 +13,8 @@ docker build  --rm -t $docker_name  -f ./Dockerfile  .
 # User Configuraiton
 #------------------------------------------------------------------------------
 HOST_PORT=8890 # Jupyter port. If using network=bridge, then it will be 8888.
-DATA_PATH="/home/pooimun.yeow" # Change to your data path.
-AWS_PATH="/home/pooimun.yeow/.aws" # Change to your aws credential path.
+DATA_PATH="/home/maryam.nuri" # Change to your data path.
+AWS_PATH="/home/maryam.nuri/axiata/.aws" # Change to your aws credential path.
 MAP_DATA_PATH=/tmp/$docker_name/data # Do not change this.
 
 host_uid=`id -u`
