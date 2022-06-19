@@ -14,8 +14,8 @@ docker build  --rm -t $docker_name  -f ./Dockerfile  .
 #------------------------------------------------------------------------------
 HOST_PORT=8890 # Jupyter port. If using network=bridge, then it will be 8888.
 DATA_PATH="/home/zankai/axiata-vault" # Change to your data path.
-AWS_PATH="/home/zankai/axiata-vault/.aws" # Change to your aws credential path.
-MAP_DATA_PATH=/tmp/$docker_name/data # Do not change this.
+AWS_PATH="/home/zankai/axiata-vault/dot_aws" # Change to your aws credential path.
+MAP_DATA_PATH=~/tmp/$docker_name/data # Do not change this.
 
 host_uid=`id -u`
 host_gid=`id -g`
@@ -32,4 +32,5 @@ docker run -i -t --rm  --name $docker_name \
     -v $MAP_DATA_PATH:/data \
     --network=host \
     -d \
+    --privileged=true \
     $docker_name 

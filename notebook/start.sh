@@ -18,8 +18,8 @@ jupyter nbextension enable scroll_down/main
 jupyter nbextension enable notify/notify
 
 cd $DATA_PATH
-jupyter notebook \
+jupyter notebook  \
     --port 8888 \
     --ip 0.0.0.0 \
-    --NotebookApp.token='' --no-browser
+    --NotebookApp.token='axiata123' --no-browser
 

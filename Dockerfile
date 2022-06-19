@@ -4,7 +4,13 @@ LABEL maintainer="zankai@myboost.co"
 # Open CV dependencies
 # https://stackoverflow.com/questions/55313610/importerror-libgl-so-1-cannot-open-shared-object-file-no-such-file-or-directo
 USER root
-RUN apt-get update && apt-get install ffmpeg libsm6 libxext6  -y
+# RUN apt-get update && apt-get install ffmpeg libsm6 libxext6  -y
+RUN apt-get update && apt-get install sudo wget  -y
+
+# Setup user (`USER_NAME`) with sudo permission. 
+# No password needed to sudo.
+RUN adduser $MAMBA_USER sudo && \
+    echo "$MAMBA_USER ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/$MAMBA_USER
 
 USER $MAMBA_USER
 
