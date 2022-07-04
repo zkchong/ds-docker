@@ -19,7 +19,8 @@ RUN micromamba install -y -n base -f /tmp/env.yaml && \
     micromamba clean --all --yes
 
 # Copy the necessary files 
-COPY  --chown=$MAMBA_USER:$MAMBA_USER ["./notebook/", "/code"] 
+# COPY  --chown=$MAMBA_USER:$MAMBA_USER ["./notebook/", "/code"] 
+COPY  --chown=$MAMBA_USER:$MAMBA_USER ["./home/", "/home/$MAMBA_USER"] 
  
-WORKDIR /code
+WORKDIR /home/$MAMBA_USER/notebook 
 CMD bash start.sh

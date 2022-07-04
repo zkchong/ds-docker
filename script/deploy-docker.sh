@@ -32,5 +32,4 @@ docker run -i -t --rm  --name $docker_name \
     -v $MAP_DATA_PATH:/data \
     --network=host \
     -d \
-    --privileged=true \
     $docker_name 
