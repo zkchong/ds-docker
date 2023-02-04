@@ -17,9 +17,13 @@ jupyter nbextension enable execute_time/ExecuteTime
 jupyter nbextension enable scroll_down/main
 jupyter nbextension enable notify/notify
 
+if [[ -z "${NOTEBOOK_SECRET_TOKEN}" ]]; then
+  NOTEBOOK_SECRET_TOKEN="abc123"
+fi
+
 cd $DATA_PATH
 jupyter notebook  \
     --port 8888 \
     --ip 0.0.0.0 \
-    --NotebookApp.token='axiata123' --no-browser
+    --NotebookApp.token=$NOTEBOOK_SECRET_TOKEN --no-browser
 
