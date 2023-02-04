@@ -1,19 +1,17 @@
-FROM mambaorg/micromamba:0.21.0
-LABEL maintainer="zankai@myboost.co"
+FROM docker.io/mambaorg/micromamba:latest
+LABEL maintainer="zkchong@gmail.com"
 
-# Open CV dependencies
-# https://stackoverflow.com/questions/55313610/importerror-libgl-so-1-cannot-open-shared-object-file-no-such-file-or-directo
+# Install system wide tools.
 USER root
-# RUN apt-get update && apt-get install ffmpeg libsm6 libxext6  -y
 RUN apt-get update && apt-get install sudo wget  -y
 
-# Setup user (`USER_NAME`) with sudo permission. 
+# Setup user for sudo permission. 
 # No password needed to sudo.
 RUN adduser $MAMBA_USER sudo && \
     echo "$MAMBA_USER ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/$MAMBA_USER
 
+# Install those in yaml
 USER $MAMBA_USER
-
 COPY --chown=$MAMBA_USER:$MAMBA_USER env.yaml /tmp/env.yaml
 RUN micromamba install -y -n base -f /tmp/env.yaml && \
     micromamba clean --all --yes
