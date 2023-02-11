@@ -16,7 +16,7 @@ podman build  --rm -t $DOCKER_NAME  --format docker  -f ./Dockerfile  .
 # User Configuraiton
 #------------------------------------------------------------------------------
 DATA_PATH="C:\Users\zkcho\OneDrive - Sunway Group\Documents\Projects" # Change to your data path.
-NOTEBOOK_SECRET_TOKEN='zankai123'
+NOTEBOOK_SECRET_TOKEN='zankai123' # Token to access the Jupyter notebook at first run.
 # Run 
 podman run -i -t --rm  --name $DOCKER_NAME \
     -v "$DATA_PATH":"/data" \
