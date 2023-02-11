@@ -56,6 +56,10 @@ Run the script `./script/deploy-docker.sh`. Make sure you change the path config
 bash ./script/deploy-docker.sh
 ```
  
-
-
+# Push Docker to `docker.io`
+```bash
+podman login docker.io  # To login to docker.io.
+podman tag ds_docker zkchong/ds_docker:win10_20230211  # Tag the current docker to win10_yyymmdd
+podman push zkchong/ds_docker:win10_20230211 # Push the image to server.
+```
  
