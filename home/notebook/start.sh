@@ -22,7 +22,7 @@ if [[ -z "${NOTEBOOK_SECRET_TOKEN}" ]]; then
 fi
 
 cd $DATA_PATH
-jupyter notebook  \
+jupyter lab  \
     --port 8888 \
     --ip 0.0.0.0 \
     --NotebookApp.token=$NOTEBOOK_SECRET_TOKEN --no-browser
