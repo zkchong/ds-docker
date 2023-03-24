@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/usr/bin/bash
 set -xe
- 
+
 # Note that the external folder will be mount to this path.
 DATA_PATH=/data
 

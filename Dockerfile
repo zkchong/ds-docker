@@ -3,7 +3,7 @@ LABEL maintainer="zkchong@gmail.com"
 
 # Install system wide tools.
 USER root
-RUN apt-get update && apt-get install sudo wget  -y
+RUN apt-get update && apt-get install sudo wget ssh -y
 
 # Matplotlib cannot find basic fonts 
 # https://stackoverflow.com/questions/42097053/matplotlib-cannot-find-basic-fonts

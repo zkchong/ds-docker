@@ -15,7 +15,7 @@ podman build  --rm -t $DOCKER_NAME  --format docker  -f ./Dockerfile  .
 #------------------------------------------------------------------------------
 # User Configuraiton
 #------------------------------------------------------------------------------
-DATA_PATH="C:\Users\zkcho\OneDrive - Sunway Group\Documents\Projects" # Change to your data path.
+DATA_PATH="C:\Users\dcap\Documents\Projects" # Change to your data path.
 NOTEBOOK_SECRET_TOKEN='zankai123'
 # Run 
 podman run -i -t --rm  --name $DOCKER_NAME \
