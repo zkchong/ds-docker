@@ -19,9 +19,9 @@ RUN adduser $MAMBA_USER sudo && \
 # Install those in yaml
 USER $MAMBA_USER
 COPY --chown=$MAMBA_USER:$MAMBA_USER env.yaml /tmp/env.yaml
-RUN micromamba install -y -n base -f /tmp/env.yaml && \
-    micromamba clean --all --yes
-
+# RUN micromamba install -y -n base -f /tmp/env.yaml && \
+#     micromamba clean --all --yes
+RUN micromamba install -y -n base -f /tmp/env.yaml  
 
 
 # Copy the necessary files 

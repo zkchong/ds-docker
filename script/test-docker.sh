@@ -12,11 +12,20 @@ DOCKER_NAME=ds_docker
 # Build the docker from scratch
 podman build  --rm -t $DOCKER_NAME  --format docker  -f ./Dockerfile  .
 
+
+# Gonna run this 
+# podman machine start
+# https://github.com/microsoft/WSL/issues/2999#issuecomment-1377556365
+# Bug in WSL2 -- cannot detect G drive. Need to mount manually.
+podman machine ssh "sudo mount -t drvfs G: /mnt/g" # Force loading g drive.
+
+
 #------------------------------------------------------------------------------
 # User Configuraiton
 #------------------------------------------------------------------------------
-DATA_PATH="C:\Users\dcap\Documents\Projects" # Change to your data path.
+DATA_PATH="G:\My Drive\G10 Projects\Projects" # Change to your data path.
 NOTEBOOK_SECRET_TOKEN='zankai123'
+
 # Run 
 podman run -i -t --rm  --name $DOCKER_NAME \
     -v "$DATA_PATH":"/data" \
