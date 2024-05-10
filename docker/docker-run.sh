@@ -24,7 +24,7 @@ fi
 # User Configuraiton
 #------------------------------------------------------------------------------
 # DATA_PATH="C:\Users\dcap\Documents\Projects" # Change to your data path.
-DATA_PATH="C:\Users\dcap\OneDrive - Dcap Commercial Services Sdn Bhd\Documents\Projects" # Change to your data path.
+DATA_PATH="C:\Users\User\OneDrive - Dcap Commercial Services Sdn Bhd\Documents\Projects" # Change to your data path.
 
 NOTEBOOK_SECRET_TOKEN='zankai123' # Token to access the Jupyter notebook at first run.
 # Run 

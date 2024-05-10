@@ -23,4 +23,3 @@ jupyter lab  \
     --port $NOTEBOOK_PORT \
     --ip 0.0.0.0 \
     --NotebookApp.token=$NOTEBOOK_SECRET_TOKEN --no-browser
-
