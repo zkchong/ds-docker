@@ -1,8 +1,10 @@
 FROM python:3.12-slim
 LABEL maintainer="zankai@dcap.my"
 
-# Argument for user name
+# Argument for user name and UID
 ARG USER_NAME=ds_user
+ARG USER_UID=1000
+ARG USER_GID=1000
 
 # Use Bash for all shell commands
 SHELL ["/bin/bash", "-c"]
@@ -12,8 +14,9 @@ RUN apt update \
     && apt install -yq sudo curl git \
     && rm -rf /var/lib/apt/lists/*
 
-# Create a new user with a home directory and Bash shell
-RUN useradd -ms /bin/bash $USER_NAME
+# Create a new user with a home directory, Bash shell, and specific UID/GID
+RUN groupadd -g $USER_GID $USER_NAME || true \
+    && useradd -u $USER_UID -g $USER_GID -ms /bin/bash $USER_NAME
 
 # Add user's local bin to PATH
 ENV USER_NAME=${USER_NAME}
