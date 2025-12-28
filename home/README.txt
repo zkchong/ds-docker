@@ -1,1 +1,0 @@
-All the files and folders here will be copied into the docker.

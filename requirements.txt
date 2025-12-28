@@ -1,0 +1,21 @@
+# Jupyter and Notebook Tools
+jupyter-ai[all]
+jupyterlab-lsp 
+python-lsp-server[python] 
+jupytext  
+nbconvert 
+
+# Data Manipulation and Analysis
+pandas 
+openpyxl
+
+# Data Visualization
+matplotlib 
+seaborn 
+# shap
+
+# Database
+pymysql
+
+# JSON Parsing
+jsonpath_ng 

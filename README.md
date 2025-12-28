@@ -1,65 +1,34 @@
-# Running DS Docker on Windows 10
-This project builds a docker that runs a data science Jupyter notebook on Windows 10 with Podman and WSL.
+# Running DS Docker on Windows 11 from WSL
+This project builds a docker that runs a Jupyterlab on Windows 11 from WSL using Podman.
 
-# What is docker?
-A container is a standard unit of software that packages up code and all its dependencies so the application runs quickly and reliably from one computing environment to another (Quoted from https://www.docker.com/resources/what-container).
+## Installation Instruction
 
-In this version, we will replace docker with Podman (https://docs.podman.io/en/latest/).
+### Install WSL 2
+- Open PowerShell or Command Prompt as Administrator:
+Right-click "Start" > "Windows Terminal (Admin)" or search for "PowerShell" or "Command Prompt", then right-click and select "Run as administrator".
 
-# Packages
-Please check the list of packages at [./env.yaml](./env.yaml).
+- Type the following command and press Enter: `wsl --install`
+- You may need to setup the adminstrator account. Do accordingly.
+- After the process completes, restart your PC when prompted.
 
-# Installation Instruction
-Note that this is the instruction to run data science docker with Podman on Windows 10. 
-
-## Step 1. Install Podman
-Refer to https://github.com/containers/podman/blob/main/docs/tutorials/podman-for-windows.md. 
-
-Note
-- The installation requires administrator password.
-- Please click the installation of WSL during Podman installation.
-
-## Step 2. Configure the Memory Limit of WSL
-By default, WSL will share all the machine memory. To avoid excessive memory usage, we should cap the WSL memory.
-
-Following the guideline to setup the memory limit for WSL https://blog.simonpeterdebbarma.com/2020-04-memory-and-wsl/
-
-Basically, we need to do the followings:
-1. Create a file at `C:\Users\zkcho\.wslconfig` with the following content:
-```text
-[wsl2]
-memory=4GB
-processors=3
-```
-to limit the memory to 4GB and processor to 3 cores only. Change this numbers according to your need.
-
-2. Restart the WSL.
+### Install Podman in WSL
+Go into the WSL using the Windows' Start Menu.
+When inside, run 
 ```bash
-wsl -l -v # To identify which WSL distro to shut down. 
-          # Normally is "podman-machine-default".
-wsl --shutdown podman-machine-default 
-podman machine start
+sudo apt update
+sudo apt upgrade  # Always a good idea to keep the OS updated.
+
+# Install packages
+sudo install podman just
+
+# Test podman is installed successfully.
+podman run hello-world
 ```
 
-3. Login to WSL again and verify the changes.
+### Run Docker
+Run:
 ```bash
-podman machine ssh # to enter the machine.
-free -m # To check the memory
-cat /proc/cpuinfo  # To check the available processors. 
+just docker-run
 ```
-
-
-## Step 3. Run the Docker
- 
-Run the script `./script/deploy-docker.sh`. Make sure you change the path configuration of this file first.
-```bash
-bash ./script/deploy-docker.sh
-```
- 
-# Push Docker to `docker.io`
-```bash
-podman login docker.io  # To login to docker.io.
-podman tag ds_docker zkchong/ds_docker:win10_20230211  # Tag the current docker to win10_yyymmdd
-podman push zkchong/ds_docker:win10_20230211 # Push the image to server.
-```
- 
+## Cursor AI
+Note that you may need to setup the WSL extension when using WSL with Cursor.
